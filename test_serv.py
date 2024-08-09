@@ -6,16 +6,17 @@ serverPort = 9998
 
 # Launch server commande: python -m http.server
 
-def return_page1(given_self):
-    return given_self.wfile.write(bytes("<p>Request: %s</p>" % given_self.path, "utf-8")), given_self.wfile.write(bytes("<h3> This is the first page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 1 and termus primus</p>", "utf-8"))
+def return_pages(given_self):
+    if given_self.path == '/glen':
+        return given_self.wfile.write(bytes("<h3> This is the first page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 1 and termus primus</p>", "utf-8"))
+        
+    elif given_self.path == '/filao':
+        return given_self.wfile.write(bytes("<h3> This is the Second page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 2 arrivas secund y nihli!</p>", "utf-8"))
+   
+    elif given_self.path == '/lastPage':
+        return given_self.wfile.write(bytes("<h3>This is the Third page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 3 triptic in greec</p>", "utf-8"))
 
-def return_page2(given_self):
-    return given_self.wfile.write(bytes("<h3> This is the Second page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 2 arrivas secund y nihli!</p>", "utf-8"))
-
-
-def return_page3(given_self):
-    return given_self.wfile.write(bytes("<h3>This is the Third page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 3 triptic in greec</p>", "utf-8"))
-    
+   
     
 class MyServer(BaseHTTPRequestHandler):
     # Sending the GET requests responses	
@@ -26,17 +27,8 @@ class MyServer(BaseHTTPRequestHandler):
         self.wfile.write(bytes("<html><head><title>Basic web server</title></head>", "utf-8"))
         self.wfile.write(bytes("<body>", "utf-8"))
         self.wfile.write(bytes("<p>Request: %s</p>" % self.path, "utf-8"))        
-        
-        if self.path == "/glen":
-            return_page1(self)
-            
-
-        elif self.path == "/filao":
-            return_page2(self)  
-            
-
-        elif self.path == "/lastPage":
-            return_page3(self)                        
+        # calling a method for specific 3 pages
+        return_pages(self)
            
         self.wfile.write(bytes("<html><head><title>Basic web server</title></head>", "utf-8"))
         self.wfile.write(bytes("<body>", "utf-8"))            
