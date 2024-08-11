@@ -17,7 +17,7 @@ def return_pages(given_self):
     elif given_self.path == '/lastPage':
         return given_self.wfile.write(bytes("<h3>This is the Third page of basic python web server</h3>", "utf-8")), given_self.wfile.write(bytes("<p> Lorem ipsus 3 triptic in greec</p>", "utf-8"))
 
-    
+
 class MyServer(BaseHTTPRequestHandler):
 
     # Sending the GET requests responses
@@ -79,19 +79,9 @@ class MyServer(BaseHTTPRequestHandler):
             age = parsed_post_data.get('age')[0]
             
             # Returning datas from post
-            print(self.path)
-            if self.path == '/inputFor/glen':
-                print("NAME   ", name)            
-                self.wfile.write(bytes("<h3> Is something wrong here?</h3", "utf-8"))           
-                self.wfile.write(bytes("<h3> Hellow Mr/Mrs %s you are %s years old and you are using a Post request with a low level python web server</h3>"%(name,age), "utf-8"))
-
-            elif self.path == '/inputFor/filao':
-                pass
-
-            elif self.path == '/inputFor/lastPage':
-                print("Never never")
+            self.wfile.write(bytes("<h3> Hellow Mr/Mrs %s you are %s years old and you are using a Post request with a low level python web server</h3>"%(name,age), "utf-8"))
                 
-            self.wfile.write(bytes("</body></html>", "utf-8"))    
+            self.wfile.write(bytes("</body></html>", "utf-8"))
             
 
 if __name__ == "__main__":
