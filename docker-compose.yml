@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    env_file: .env
+    container_name: liege_postgres
+    hostname: liege_postgres
+    ports:
+      - 5432:5432
+    networks:
+      - traefik_proxy
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: liege_pgadmin
+    hostname: liege_pgadmin
+    restart: always
+    env_file: .env
+    networks:
+      - traefik_proxy
+    ports:
+      - 192.168.1.9:8087:80
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin/data/
+    depends_on:
+      - postgres
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.pgadmin.entrypoints=websecure"
+      - "traefik.http.routers.pgadmin.tls.certresolver=myresolver"
+      - "traefik.http.routers.pgadmin.rule=Host(`gestdb.filaos.re`)"
+
+networks:
+  traefik_proxy:
+    external: true
