@@ -8,7 +8,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      - traefik_proxy
+      - low_lev_serv
     volumes:
       - ./data:/var/lib/postgresql/data
 
@@ -19,20 +19,15 @@ services:
     restart: always
     env_file: .env
     networks:
-      - traefik_proxy
+      - low_lev_serv
     ports:
       - 192.168.1.9:8087:80
     volumes:
       - ./pgadmin_data:/var/lib/pgadmin/data/
     depends_on:
       - postgres
-    labels:
-      - "traefik.enable=true"
 
-      - "traefik.http.routers.pgadmin.entrypoints=websecure"
-      - "traefik.http.routers.pgadmin.tls.certresolver=myresolver"
-      - "traefik.http.routers.pgadmin.rule=Host(`gestdb.filaos.re`)"
 
 networks:
-  traefik_proxy:
-    external: true
+  low_lev_serv:
+    external: True
