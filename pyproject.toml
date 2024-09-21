@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "low_level_server_py"
+version = "0.1.0"
+description = "create a low level python web server with a postgres DB"
+authors = ["Glen in & Nico as consult"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.31.0"
+cryptography = "^41.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

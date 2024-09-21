@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import time, json
+import time, json, ssl
 from urllib.parse import parse_qs
 
 hostName = "0.0.0.0"
@@ -23,7 +23,7 @@ class MyServer(BaseHTTPRequestHandler):
     # Sending the GET requests responses
     def do_GET(self):
 
-        if self.path in ['/glen', '/filao','/lastPage']:
+        if self.path in ['/','/glen', '/filao','/lastPage']:
             self.send_response(200)
             self.send_header("Content-type", "text/html")
             self.end_headers()
@@ -86,6 +86,13 @@ class MyServer(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     webServer = HTTPServer((hostName,serverPort),MyServer)
+
+    '''
+    webServer.socket = ssl.wrap_socket(webServer.socket,
+                                       keyfile="./key.pem",
+                                       certfile='./cert.pem',
+                                       server_side=True)
+    '''
     print(" Server started http://%s:%s" % (hostName, serverPort))
     try:
         webServer.serve_forever()
