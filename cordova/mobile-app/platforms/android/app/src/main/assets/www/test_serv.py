@@ -87,13 +87,13 @@ class MyServer(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     webServer = HTTPServer((hostName,serverPort),MyServer)
 
-    
+    '''
     webServer.socket = ssl.wrap_socket(webServer.socket,
-                                       keyfile="./keys_pem/privkey.pem",
-                                       certfile='./keys_pem/cert.pem',
+                                       keyfile="./key.pem",
+                                       certfile='./cert.pem',
                                        server_side=True)
+    '''
     print(" Server started http://%s:%s" % (hostName, serverPort))
-    
     try:
         webServer.serve_forever()
     except KeyboardInterrupt:
